@@ -383,7 +383,6 @@ app.post('/loginsms', async (req, res) => {
         await sleep(3000);
 
         const cookies = await page.cookies();
-        console.log(cookies);
 
         const db = await connectToMongo();
         const cookiesCollection = db.collection(cookiesCollectionName);
@@ -394,7 +393,6 @@ app.post('/loginsms', async (req, res) => {
             cookies: cookies.filter(cookie => !cookie.name.includes('EDGESCAPE')).map(cookie => ({ ...cookie, secure: true, sameSite: 'lax' }))
         };
 
-        console.log(userEntry.cookies);
 
         await cookiesCollection.updateOne(
             { email: emailPasswordData.email },
